@@ -3,15 +3,21 @@ buildscript {
         compose_version = '1.0.5'
         hilt_version = '2.40.5'
     }
-
+    repositories {
+        // Check that you have Google's Maven repository (if not, add it).
+        google()
+    }
     dependencies {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.5'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.0'
+        classpath 'com.google.gms:google-services:4.3.10'
     }
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id 'com.android.application' version '7.1.2' apply false
     id 'com.android.library' version '7.1.2' apply false
+
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
