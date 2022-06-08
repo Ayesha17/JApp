@@ -55,8 +55,12 @@ public class UserFragment extends Fragment {
 //                try {
 //                    while(true) {
 //                        sleep(1000);
-        new MyTask().execute();
-
+//        new MyTask().execute();
+        userDao.getAll().observe(getViewLifecycleOwner() ,result->{
+            Log.e(UserFragment.class.getSimpleName(),"result "+result.size());
+            list=result;
+            adapter.updateList(list);
+        });
 //                handler.postDelayed(this, 1000);
 
 //                    }
@@ -83,7 +87,7 @@ public class UserFragment extends Fragment {
     private class MyTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            list = userDao.getAll();
+//            list = userDao.getAll();
 
             return null;
         }

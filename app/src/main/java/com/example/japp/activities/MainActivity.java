@@ -58,7 +58,7 @@ UserDao userDao;
 //new Mytask().execute();
     }
     public void insertData() {
-        for(int i=1300;i<130000;i++) {
+        for(int i=1;i<1300;i++) {
             User user = new User();
             user.uid = i;
             user.firstName = "Ayesha";
