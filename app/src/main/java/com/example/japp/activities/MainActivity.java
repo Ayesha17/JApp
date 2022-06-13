@@ -41,28 +41,30 @@ UserDao userDao;
         FirebaseAnalytics.getInstance(getApplicationContext());
 
 
-        Button crashButton = new Button(this);
-        crashButton.setText("Test Crash");
-        crashButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-
-                //                throw new RuntimeException("Test Crash"); // Force a crash
-            }
-        });
-
-        addContentView(crashButton, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+//        Button crashButton = new Button(this);
+//        crashButton.setText("Test Crash");
+//        crashButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View view) {
+//
+//                //                throw new RuntimeException("Test Crash"); // Force a crash
+//            }
+//        });
+//
+//        addContentView(crashButton, new ViewGroup.LayoutParams(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.WRAP_CONTENT));
 
 //        insertData();
 //new Mytask().execute();
     }
     public void insertData() {
-        for(int i=1;i<1300;i++) {
+        for(int i=1;i<300;i++) {
             User user = new User();
             user.uid = i;
             user.firstName = "Ayesha";
             user.lastName = "Shahid - "+i;
+            user.tCount = i +"";
+            user.AgeCount =i+1 +"";
             userDao.insertAll(user);
         }
     }

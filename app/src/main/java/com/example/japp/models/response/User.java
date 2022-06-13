@@ -14,4 +14,10 @@ public class User {
 
     @ColumnInfo(name = "last_name")
     public String lastName;
+
+    @ColumnInfo(name = "t_count")
+    public String tCount;
+
+    @ColumnInfo(name = "age_count")
+    public String AgeCount;
 }

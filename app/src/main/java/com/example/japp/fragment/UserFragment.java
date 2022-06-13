@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.japp.R;
 import com.example.japp.adapters.UserAdapter;
 import com.example.japp.models.response.User;
+import com.example.japp.models.response.UserData;
 import com.example.japp.network.UserDao;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class UserFragment extends Fragment {
     @Inject
     UserDao userDao;
-    List<User> list = new ArrayList<>();
+    List<UserData> list = new ArrayList<>();
     UserAdapter adapter;
 
     @Override
@@ -48,7 +49,10 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main, container, false);
-        adapter = new UserAdapter(list, getContext());
+        adapter = new UserAdapter((UserAdapter.DiffCallbackUpcomingList) UserAdapter.DiffCallbackUpcomingList,(UserAdapter.UserClickListener) (model, view1) -> {
+
+        });
+
 //        Thread thread = new Thread() {
 //            @Override
 //            public void run() {
@@ -56,10 +60,16 @@ public class UserFragment extends Fragment {
 //                    while(true) {
 //                        sleep(1000);
 //        new MyTask().execute();
-        userDao.getAll().observe(getViewLifecycleOwner() ,result->{
-            Log.e(UserFragment.class.getSimpleName(),"result "+result.size());
-            list=result;
-            adapter.updateList(list);
+        userDao.getAll().observe(getViewLifecycleOwner(), result -> {
+            Log.e(UserFragment.class.getSimpleName(), "result " + result.size());
+            for (User resultData : result)
+                list.add(new UserData(resultData.uid, resultData.firstName, resultData.lastName, resultData.tCount, resultData.AgeCount));
+//            adapter.updateList(list);
+            List<UserAdapter.DataItemUpcomingListing> f = new ArrayList<>();
+            for (UserData sb : list)
+                f.add(new UserAdapter.DataItemUpcomingListing(sb));
+            adapter.submitList(f);
+
         });
 //                handler.postDelayed(this, 1000);
 
@@ -95,7 +105,7 @@ public class UserFragment extends Fragment {
         @Override
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
-            adapter.updateList(list);
+//            adapter.updateList(list);
         }
     }
 }
