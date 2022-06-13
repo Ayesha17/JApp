@@ -62,7 +62,7 @@ public class UserAdapter extends ListAdapter<DataItemUpcomingListing, RecyclerVi
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         final int index = viewHolder.getAdapterPosition();
-        ((userViewHolder) viewHolder).bind((UserData) getItem(position).user);
+        ((userViewHolder) viewHolder).bind((UserData) getItem(position).user,mUserClickListener);
 //        viewHolder.examName.setText(list.get(position).firstName +" "+list.get(position).lastName);
 
     }
@@ -77,10 +77,11 @@ public class UserAdapter extends ListAdapter<DataItemUpcomingListing, RecyclerVi
             mBinding = itemView;
         }
 
-        public void bind(UserData modelItem) {
+        public void bind(UserData modelItem,UserClickListener clickListener) {
             if ((Integer.parseInt(modelItem.gettCount())/2) < 10) {
                 modelItem.settCount("0");
             }
+            mBinding.setClickListener(clickListener);
             mBinding.setUserData(modelItem);
             mBinding.executePendingBindings();
 

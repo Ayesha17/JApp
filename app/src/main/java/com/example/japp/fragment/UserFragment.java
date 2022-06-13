@@ -32,6 +32,7 @@ public class UserFragment extends Fragment {
     UserDao userDao;
     List<UserData> list = new ArrayList<>();
     UserAdapter adapter;
+    UserData rmodel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,31 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main, container, false);
-        adapter = new UserAdapter((UserAdapter.DiffCallbackUpcomingList) UserAdapter.DiffCallbackUpcomingList,(UserAdapter.UserClickListener) (model, view1) -> {
-
+        adapter = new UserAdapter((UserAdapter.DiffCallbackUpcomingList) UserAdapter.DiffCallbackUpcomingList, (UserAdapter.UserClickListener) (model, view1) -> {
+            rmodel = model;
         });
 
+        view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<UserData> lists = list;
+                int pos = lists.indexOf(rmodel);
+                if(pos!=-1){
+                    UserData userData=new UserData(rmodel.getUid(),"Ayeshaaaa","Shahid dd",
+                            "-1","-1");
+
+                    lists.add(pos,userData);
+                }
+//                for (User resultData : result)
+//                    list.add(new UserData(resultData.uid, resultData.firstName, resultData.lastName, resultData.tCount, resultData.AgeCount));
+//            adapter.updateList(list);
+                List<UserAdapter.DataItemUpcomingListing> f = new ArrayList<>();
+                for (UserData sb : lists)
+                    f.add(new UserAdapter.DataItemUpcomingListing(sb));
+                adapter.submitList(f);
+
+            }
+        });
 //        Thread thread = new Thread() {
 //            @Override
 //            public void run() {

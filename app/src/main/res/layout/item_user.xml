@@ -4,11 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
+            name="clickListener"
+            type="com.example.japp.adapters.UserAdapter.UserClickListener" />
+        <variable
             name="userData"
             type="com.example.japp.models.response.UserData" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
+    android:onClick="@{(v)->clickListener.onDetailClicked(userData,v)}"
     android:layout_height="wrap_content">
 
     <TextView
